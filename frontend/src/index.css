@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-deep text-ink antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tight;
+    letter-spacing: -0.03em;
+  }
+
+  ::selection {
+    @apply bg-lime text-white;
+  }
+
+  /* Visible keyboard focus everywhere, styled to match the brand instead of
+     the browser default blue ring. */
+  :focus-visible {
+    outline: 2px solid theme("colors.lime.DEFAULT");
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-sm font-bold text-lime mb-4;
+  }
+
+  .btn-lime {
+    @apply relative inline-flex items-center gap-2 rounded-full bg-lime px-6 py-4
+           font-bold text-white transition-all duration-300 hover:bg-lime-bright
+           hover:-translate-y-0.5 hover:shadow-lime;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 rounded-full border border-ink/15 px-6 py-4
+           font-bold text-ink transition-all duration-300 hover:border-lime hover:text-lime;
+  }
+
+  .container-x {
+    @apply mx-auto w-full max-w-7xl px-6 lg:px-8;
+  }
+
+  .input {
+    @apply w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-sm text-ink
+           placeholder:text-cloud focus:border-lime;
+  }
+
+  /* New — VOLTRIQ-style surface for product/feature cards, used going
+     forward wherever a page needs a raised light panel on the page bg. */
+  .card {
+    @apply rounded-2xl border border-ink/10 bg-white shadow-card transition-shadow
+           duration-300 hover:shadow-card-lg;
+  }
+
+  /* New — VOLTRIQ's signature blue headline gradient (their --grad). */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #42a5f5 0%, #1565c0 52%, #0d47a1 100%);
+  }
+
+  /* New — same gradient, used as a panel background for hero-type banners
+     that need to stand out from the plain white page. */
+  .bg-gradient-brand {
+    background-image: linear-gradient(135deg, #42a5f5 0%, #1565c0 52%, #0d47a1 100%);
+  }
+}
+
+/* Hero slide content animates in only on the slide Swiper marks active —
+   reliable and CSS-only, no React state needed to sync with the carousel. */
+.hero-reveal > * {
+  opacity: 0;
+}
+.swiper-slide-active .hero-reveal > * {
+  animation: heroReveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.swiper-slide-active .hero-reveal > *:nth-child(1) { animation-delay: 0.05s; }
+.swiper-slide-active .hero-reveal > *:nth-child(2) { animation-delay: 0.15s; }
+.swiper-slide-active .hero-reveal > *:nth-child(3) { animation-delay: 0.28s; }
+@keyframes heroReveal {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Subtle grain so flat light panels don't look like a plain color fill. */
+.bg-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");
+}

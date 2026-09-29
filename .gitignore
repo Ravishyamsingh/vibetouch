@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+
+# Local environment files and secrets
+.env
+.env.*
+!.env.example
+
+# Build output and tooling caches
+dist/
+build/
+coverage/
+.vite/
+.cache/
+*.tsbuildinfo
+
+# Runtime uploads and generated media
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# Logs and runtime files
+*.log
+logs/
+*.pid
+*.pid.lock
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editors and IDEs
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.example.json
+*.swp
+*.swo
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
